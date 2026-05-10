@@ -127,7 +127,6 @@ const ACHIEVEMENTS = [
   {id:'day4',  icon:'🚦',  label:'Urbanist',    xp:50},
   {id:'day5',  icon:'🎡',  label:'Adventurer',  xp:50},
   {id:'day67', icon:'🌲',  label:'Wanderer',    xp:75},
-  {id:'quiz',  icon:'🧠',  label:'Scholar',     xp:100},
   {id:'all',   icon:'👑',  label:'Legend',      xp:200},
 ];
 
