@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 5 — Tagaytay · 旅日記</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --day-color: #ea580c;
+      --day-dark: #c2410c;
+      --day-light: rgba(234, 88, 12, 0.1);
+    }
+  </style>
+  <link rel="stylesheet" href="day-shared.css">
+  <style>
+    .ferris-wheel {
+      width: 120px;
+      height: 120px;
+      border: 4px solid var(--day-color);
+      border-radius: 50%;
+      position: relative;
+      margin: 0 auto 1rem;
+      animation: spin 8s linear infinite;
+      box-shadow: 0 0 20px rgba(234, 88, 12, 0.3);
+    }
+
+    .ferris-spoke {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50%;
+      height: 2px;
+      background: var(--day-color);
+      transform-origin: left center;
+      opacity: 0.6;
+    }
+
+    .ferris-car {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #fff;
+      border: 2px solid var(--day-color);
+      border-radius: 3px;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+  <div id="scroll-bar">
+    <div id="scroll-fill"></div>
+  </div>
+  <div id="page-transition"></div>
+  <div id="pt-text"></div>
+  <div id="topbar">
+    <a class="topbar-logo" href="index.html" onclick="nav(event,'index.html','Home')"><span
+        class="logo-kanji">旅</span><span>JULIANA's Blog</span></a>
+    <nav class="topbar-nav">
+      <a class="nav-pill" href="index.html" onclick="nav(event,'index.html','Home')">Home</a>
+      <a class="nav-pill" href="day1.html" onclick="nav(event,'day1.html','Day 1')">Day 1</a>
+      <a class="nav-pill" href="day2.html" onclick="nav(event,'day2.html','Day 2')">Day 2</a>
+      <a class="nav-pill" href="day3.html" onclick="nav(event,'day3.html','Day 3')">Day 3</a>
+      <a class="nav-pill" href="day4.html" onclick="nav(event,'day4.html','Day 4')">Day 4</a>
+      <a class="nav-pill active">Day 5</a>
+      <a class="nav-pill" href="day67.html" onclick="nav(event,'day67.html','Day 6-7')">Day 6–7</a>
+    </nav>
+    <div class="topbar-actions">
+      <div class="xp-row">
+        <div class="xp-track">
+          <div class="xp-fill" id="xp-fill"></div>
+        </div><span id="xp-num">0 XP</span>
+      </div>
+      <div class="icon-pill" onclick="toggleDark()">🌙</div>
+    </div>
+  </div>
+  <div class="page">
+    <div class="day-hero" style="background:linear-gradient(135deg,#4c1d00 0%,#1a0800 100%);">
+      <div class="day-hero-deco">
+        <div class="hero-circle"
+          style="width:350px;height:350px;top:-100px;right:-70px;border-color:rgba(234,88,12,0.18)"></div>
+        <div class="hero-circle"
+          style="width:160px;height:160px;bottom:-50px;left:20%;border-color:rgba(234,88,12,0.08)"></div>
+      </div>
+      <div class="day-hero-content">
+        <div class="day-stamp"><span class="stamp" style="color:#fff;border-color:rgba(255,255,255,0.6);">DAY 05</span>
+        </div>
+        <h1 class="day-title">Highlands &<br><span style="color:var(--day-color)">Adventure</span></h1>
+        <p class="day-subtitle">People's Park · Sky Ranch Tagaytay</p>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem;">
+          <span class="atm-tag">22°C · Cool & Breezy</span>
+          <span class="atm-tag">4 min read</span>
+          <span class="atm-tag">Nature & Tourism</span>
+        </div>
+      </div>
+      <div class="day-hero-emoji"></div>
+    </div>
+
+    <div class="day-content">
+      <section class="content-section reveal">
+        <span class="section-kana">訪れた場所</span>
+        <h2 class="section-heading">Places <span class="underline-swash">Visited</span></h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--day-color)"></div>
+            <div class="tl-card">
+              <div class="tl-time">Morning</div>
+              <div class="tl-place">People's Park in the Sky (Palace in the Sky)</div>
+              <div class="tl-desc">Originally intended as a presidential mansion for Ferdinand Marcos, this unfinished
+                palace sits atop Mount Gonzales at 2,200 feet above sea level. Today, it's a public park offering
+                stunning panoramic views of Taal Volcano, Laguna de Bay, and the surrounding highlands. The cool breeze
+                and historical ruins make it a unique Tagaytay experience.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#7c3aed"></div>
+            <div class="tl-card">
+              <div class="tl-time">Afternoon</div>
+              <div class="tl-place">Sky Ranch Tagaytay</div>
+              <div class="tl-desc">The Philippines' highest Ferris wheel at 55 meters tall — offering a thrilling ride
+                with breathtaking views of Taal Volcano. We enjoyed the rides, games, and the cool highland atmosphere.
+                The Sky Ranch experience was pure fun and adventure.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PHOTO GALLERY -->
+      <section class="content-section reveal" data-delay="0.1">
+        <span class="section-kana">写真ギャラリー</span>
+        <h2 class="section-heading">Photo <span class="underline-swash">Gallery</span></h2>
+        <div class="photo-grid-masonry" id="gallery-day5">
+          <!-- Images will be loaded dynamically -->
+        </div>
+        <button class="btn btn-ghost" onclick="openFullGallery(5)" style="margin-top:1rem;align-self:center;">View All
+          18 Photos →</button>
+      </section>
+
+      <div class="two-col">
+        <section class="content-section reveal" data-delay="0.1">
+          <span class="section-kana">学んだこと</span>
+          <h2 class="section-heading">What We <span class="underline-swash">Learned</span></h2>
+          <div class="notebook journal-lines"
+            style="padding:1.5rem 1.5rem 1.5rem 4rem;border:var(--border-thick);border-radius:14px;box-shadow:var(--shadow-md);background:#fff;">
+            <div class="learn-item"><span class="learn-icon"></span>
+              <p>People's Park in the Sky was originally built as a presidential mansion but was left unfinished after
+                the 1986 People Power Revolution — it now stands as a historical landmark.</p>
+            </div>
+            <div class="learn-item"><span class="learn-icon"></span>
+              <p>The park sits at 2,200 feet above sea level, offering one of the best viewpoints of Taal Volcano and
+                the surrounding province of Batangas.</p>
+            </div>
+            <div class="learn-item"><span class="learn-icon"></span>
+              <p>Sky Ranch's Ferris wheel at 55 meters is the highest in the Philippines — tall enough to see Taal
+                Volcano across the lake on a clear day.</p>
+            </div>
+            <div class="learn-item"><span class="learn-icon"></span>
+              <p>Tagaytay sits 600+ meters above sea level, giving it a natural cool climate of ~22°C — a refreshing
+                escape just 60km south of Manila.</p>
+            </div>
+          </div>
+        </section>
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+          <section class="content-section reveal" data-delay="0.2">
+            <span class="section-kana">振り返り</span>
+            <h2 class="section-heading">Reflection</h2>
+            <div class="speech-bubble">
+              <p>"From the historical ruins of People's Park to the thrill of the Sky Ranch Ferris wheel — Tagaytay gave
+                us a perfect mix of history, nature, and adventure. Standing at the unfinished palace overlooking the
+                valley made us reflect on our country's past, while riding the highest Ferris wheel reminded us to look
+                forward with hope and excitement. This day was exactly what we needed after days of city exploration."
+              </p>
+            </div>
+          </section>
+          <section class="content-section reveal" data-delay="0.25">
+            <span class="section-kana">おもしろい事実</span>
+            <h2 class="section-heading">Fun Facts</h2>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+              <div class="sticky" style="transform:rotate(-1.5deg)">People's Park sits at 2,200 feet above sea level!
+              </div>
+              <div class="sticky" style="transform:rotate(2deg);background:#fff3e0;border-color:#ffcc02">55-meter Ferris
+                wheel — highest in the Philippines!</div>
+              <div class="sticky" style="transform:rotate(-1deg);background:#e8f5e9;border-color:#a5d6a7">22°C average
+                temp in Tagaytay — no aircon needed!</div>
+            </div>
+          </section>
+
+          <!-- Animated Ferris Wheel -->
+          <section class="content-section reveal" data-delay="0.3">
+            <span class="section-kana">アトラクション</span>
+            <h2 class="section-heading">Sky Ranch <span class="underline-swash">Wheel</span></h2>
+            <div
+              style="background:#fff;border:var(--border-thick);border-radius:14px;padding:1.5rem;box-shadow:var(--shadow-md);text-align:center;">
+              <div class="ferris-wheel" id="ferris">
+                <!-- Spokes and cars added by JS -->
+              </div>
+              <p style="font-family:var(--font-sketch);font-size:0.85rem;color:var(--muted);">55 meters tall · Highest
+                in the Philippines</p>
+              <button
+                onclick="document.getElementById('ferris').style.animationDuration=(parseFloat(getComputedStyle(document.getElementById('ferris')).animationDuration)===8?'2s':'8s')"
+                style="margin-top:0.75rem;font-family:var(--font-display);font-weight:700;font-size:0.75rem;padding:0.4rem 1rem;border:var(--border);border-radius:6px;cursor:none;background:transparent;color:var(--ink);transition:all 0.2s;"
+                class="btn btn-ghost">Speed Up / Slow Down</button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <section class="content-section reveal">
+        <span class="section-kana">発見したスキル</span>
+        <h2 class="section-heading">Skills <span class="underline-swash">Discovered</span></h2>
+        <div class="skill-cloud">
+          <span class="skill-tag" style="--sc:#ea580c">Philippine History (People's Park)</span>
+          <span class="skill-tag" style="--sc:#7c3aed">Highland Ecology</span>
+          <span class="skill-tag" style="--sc:#16a34a">Climate & Geography</span>
+          <span class="skill-tag" style="--sc:#2563eb">Adventure Tourism</span>
+          <span class="skill-tag" style="--sc:#f59e0b">Heritage Conservation</span>
+        </div>
+      </section>
+
+      <div class="day-nav-row">
+        <button class="btn btn-ghost" onclick="nav(null,'day4.html','← Day 4')">← Day 4</button>
+        <button class="btn btn-ghost" onclick="nav(null,'index.html','Home')">Home Chapters</button>
+        <button class="btn btn-red" onclick="nav(null,'day67.html','Day 6-7')">Next: Days 6–7 →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="photo-zoom" onclick="this.style.display='none'"
+    style="position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;backdrop-filter:blur(16px);">
+    <div id="pz-emoji" style="font-size:8rem;"></div>
+    <div id="pz-title" style="font-family:var(--font-display);font-weight:900;font-size:1.5rem;color:#fff;"></div>
+    <div id="pz-desc"
+      style="font-family:var(--font-sketch);font-size:1rem;color:rgba(255,255,255,0.6);max-width:400px;text-align:center;">
+    </div>
+    <div style="font-family:var(--font-sketch);font-size:0.8rem;color:rgba(255,255,255,0.3);margin-top:1rem;">Click
+      anywhere to close</div>
+  </div>
+  <div id="ach-strip"></div>
+  <script src="shared.js"></script>
+  <script src="day-shared.js"></script>
+  <script>
+    initDayPage('day5');
+    // Build Ferris wheel
+    const ferris = document.getElementById('ferris');
+    const numSpokes = 8;
+    for (let i = 0; i < numSpokes; i++) {
+      const spoke = document.createElement('div');
+      spoke.className = 'ferris-spoke';
+      spoke.style.transform = `rotate(${i * (360 / numSpokes)}deg)`;
+      ferris.appendChild(spoke);
+      const car = document.createElement('div');
+      car.className = 'ferris-car';
+      const angle = (i / numSpokes) * Math.PI * 2;
+      car.style.left = (50 + 45 * Math.cos(angle)) + '%';
+      car.style.top = (50 + 45 * Math.sin(angle)) + '%';
+      car.textContent = ['🎡', '🏞️', '☁️', '🌤️', '⭐', '🏔️', '🌸', '🎠'][i] || '';
+      car.style.fontSize = '0.6rem';
+      car.style.display = 'flex';
+      car.style.alignItems = 'center';
+      car.style.justifyContent = 'center';
+      ferris.appendChild(car);
+    }
+  </script>
+</body>
+
+</html>

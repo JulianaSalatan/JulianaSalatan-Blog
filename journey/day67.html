@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Days 6–7 — Baguio · 旅日記</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --day-color: #7c3aed;
+      --day-dark: #6d28d9;
+      --day-light: rgba(124, 58, 237, 0.1);
+    }
+
+    .finale-quote {
+      background: var(--ink);
+      color: var(--cream);
+      border: var(--border-thick);
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .finale-quote::before {
+      content: '✦';
+      position: absolute;
+      top: 1rem;
+      left: 1.5rem;
+      font-size: 3rem;
+      opacity: 0.1;
+    }
+
+    .finale-quote::after {
+      content: '✦';
+      position: absolute;
+      bottom: 1rem;
+      right: 1.5rem;
+      font-size: 3rem;
+      opacity: 0.1;
+    }
+
+    .finale-quote blockquote {
+      font-family: var(--font-sketch);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      line-height: 1.8;
+      color: var(--cream);
+      font-style: italic;
+    }
+
+    .finale-quote cite {
+      display: block;
+      margin-top: 1rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--yellow);
+    }
+
+    .final-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .final-stat {
+      background: #fff;
+      border: var(--border-thick);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .final-stat .fs-num {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: var(--day-color);
+      display: block;
+    }
+
+    .final-stat .fs-label {
+      font-family: var(--font-sketch);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+  </style>
+  <link rel="stylesheet" href="day-shared.css">
+</head>
+
+<body>
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+  <div id="scroll-bar">
+    <div id="scroll-fill"></div>
+  </div>
+  <div id="page-transition"></div>
+  <div id="pt-text"></div>
+  <div id="topbar">
+    <a class="topbar-logo" href="index.html" onclick="nav(event,'index.html','Home')"><span
+        class="logo-kanji">旅</span><span>JULIANA's Blog</span></a>
+    <nav class="topbar-nav">
+      <a class="nav-pill" href="index.html" onclick="nav(event,'index.html','Home')">Home</a>
+      <a class="nav-pill" href="day1.html" onclick="nav(event,'day1.html','Day 1')">Day 1</a>
+      <a class="nav-pill" href="day2.html" onclick="nav(event,'day2.html','Day 2')">Day 2</a>
+      <a class="nav-pill" href="day3.html" onclick="nav(event,'day3.html','Day 3')">Day 3</a>
+      <a class="nav-pill" href="day4.html" onclick="nav(event,'day4.html','Day 4')">Day 4</a>
+      <a class="nav-pill" href="day5.html" onclick="nav(event,'day5.html','Day 5')">Day 5</a>
+      <a class="nav-pill active">Day 6–7</a>
+    </nav>
+    <div class="topbar-actions">
+      <div class="xp-row">
+        <div class="xp-track">
+          <div class="xp-fill" id="xp-fill"></div>
+        </div><span id="xp-num">0 XP</span>
+      </div>
+      <div class="icon-pill" onclick="toggleDark()">🌙</div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="day-hero" style="background:linear-gradient(135deg,#2e1065 0%,#0d0520 100%);">
+      <div class="day-hero-deco">
+        <div class="hero-circle"
+          style="width:400px;height:400px;top:-120px;right:-80px;border-color:rgba(124,58,237,0.15)"></div>
+        <div class="hero-circle"
+          style="width:200px;height:200px;bottom:-60px;left:20%;border-color:rgba(124,58,237,0.08)"></div>
+      </div>
+      <div class="day-hero-content">
+        <div class="day-stamp">
+          <span class="stamp" style="color:#fff;border-color:rgba(255,255,255,0.6);">DAY 06–07</span>
+          <span class="stamp"
+            style="color:var(--yellow);border-color:var(--yellow);margin-left:0.5rem;animation:stamp-in 0.8s ease both;">FINALE</span>
+        </div>
+        <h1 class="day-title">City of<br><span style="color:var(--day-color)">Pines</span></h1>
+        <p class="day-subtitle">Baguio · Strawberry Farm · The Mansion · Mines View · Burnham Park</p>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem;">
+          <span class="atm-tag">16°C · Cool & Pine-scented</span>
+          <span class="atm-tag">8 min read</span>
+          <span class="atm-tag">Summer Capital</span>
+        </div>
+      </div>
+      <div class="day-hero-emoji"></div>
+    </div>
+
+    <div class="day-content">
+
+      <!-- Timeline Day 6 -->
+      <section class="content-section reveal">
+        <span class="section-kana">1日目 - バギオ</span>
+        <h2 class="section-heading">Day 6 <span class="underline-swash">Baguio Exploration</span></h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--day-color)"></div>
+            <div class="tl-card">
+              <div class="tl-time">Morning</div>
+              <div class="tl-place">Strawberry Farm (La Trinidad)</div>
+              <div class="tl-desc">We started our Baguio adventure at the famous Strawberry Farm in La Trinidad,
+                Benguet. We bought fresh strawberries, strawberry jam, and other pasalubong (souvenirs) for our families
+                and classmates. The cool morning air and fresh strawberry scent made this a memorable first stop.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#db2777"></div>
+            <div class="tl-card">
+              <div class="tl-time">Late Morning</div>
+              <div class="tl-place">Chinese Bell Church (Baguio Bell Church)</div>
+              <div class="tl-desc">A beautiful Buddhist-Taoist temple with stunning architecture, bells, and dragon
+                sculptures. We learned about the Chinese-Filipino community's influence in Baguio and enjoyed the
+                peaceful atmosphere surrounded by pine trees.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+    
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#0ea5e9"></div>
+            <div class="tl-card">
+              <div class="tl-time">Early Afternoon</div>
+              <div class="tl-place">The Mansion (Official Summer Palace of the President)</div>
+              <div class="tl-desc">We visited The Mansion, the official summer residence of the President of the
+                Philippines. The iconic gate and colonial architecture were impressive. We took photos outside and
+                learned about its history dating back to the American colonial era.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#16a34a"></div>
+            <div class="tl-card">
+              <div class="tl-time">Mid Afternoon</div>
+              <div class="tl-place">Philippine Military Academy (PMA)</div>
+              <div class="tl-desc">A significant stop at the country's premier military academy. We saw the cadets in
+                their formal uniforms, explored the grounds, and learned about the discipline and leadership training
+                that happens here. The view of the parade ground against the mountain backdrop was stunning.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#7c3aed"></div>
+            <div class="tl-card">
+              <div class="tl-time">Late Afternoon</div>
+              <div class="tl-place">Mines View Park</div>
+              <div class="tl-desc">A panoramic viewpoint overlooking the Cordillera mountain ranges and the former gold
+                and copper mining town of Itogon. We took photos with the traditional Igorot costumes, enjoyed the cool
+                breeze, and bought more souvenirs.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#fbbf24"></div>
+            <div class="tl-card">
+              <div class="tl-time">Evening</div>
+              <div class="tl-place">Dinner at Prince Plaza Hotel</div>
+              <div class="tl-desc">We had our dinner buffet at Prince Plaza Hotel. The warm meal was perfect after a
+                long day of exploring Baguio's attractions.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#ea580c"></div>
+            <div class="tl-card">
+              <div class="tl-time">Night</div>
+              <div class="tl-place">Burnham Park Night Market</div>
+              <div class="tl-desc">We explored the famous Night Market at Burnham Park! We bought UNO cards, affordable
+                Baguio jackets, and other finds. The night market was alive with energy, food stalls, and bargain
+                shopping. Later, back at the hotel, we played UNO together as a group — so much fun and laughter!</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timeline Day 7 -->
+      <section class="content-section reveal" data-delay="0.1">
+        <span class="section-kana">2日目 - バギオ → マニラ</span>
+        <h2 class="section-heading">Day 7 <span class="underline-swash">Final Day & Return</span></h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--day-color)"></div>
+            <div class="tl-card">
+              <div class="tl-time">Morning</div>
+              <div class="tl-place">Burnham Park (Joy Ride / Bikes)</div>
+              <div class="tl-desc">We returned to Burnham Park to ride the joy carts (bicycle carts) around the park! It
+                was so fun pedaling around the lake, enjoying the fresh pine-scented morning air. Some of us also tried
+                the swan boats on the lake.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#db2777"></div>
+            <div class="tl-card">
+              <div class="tl-time">Late Morning</div>
+              <div class="tl-place">SM City Baguio</div>
+              <div class="tl-desc">We walked to SM Baguio to do some last-minute shopping for pasalubong and to enjoy
+                the view from the mall's famous overlooking deck. The cool breeze and mountain views from SM Baguio are
+                unmatched.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#16a34a"></div>
+            <div class="tl-card">
+              <div class="tl-time">Afternoon</div>
+              <div class="tl-place">Return Trip to Manila</div>
+              <div class="tl-desc">We boarded the bus and traveled back to Manila. The long drive gave us time to rest,
+                share photos, and reflect on the amazing week we had.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:var(--yellow)"></div>
+            <div class="tl-card">
+              <div class="tl-time">Evening</div>
+              <div class="tl-place">DJM Dormitory - Home</div>
+              <div class="tl-desc">We arrived safely at DJM Dormitory. But the night wasn't over — we gathered with our
+                classmates and played UNO together one last time, laughing and reminiscing about the incredible journey
+                we just completed. Seven days of memories, friendships, and discoveries. The perfect ending.</div>
+              <div class="tl-emoji"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHOTO GALLERY -->
+      <section class="content-section reveal" data-delay="0.1">
+        <span class="section-kana">写真ギャラリー</span>
+        <h2 class="section-heading">Photo <span class="underline-swash">Gallery</span></h2>
+
+        <!-- Day 6 - Baguio -->
+        <div style="margin-bottom: 2rem;">
+          <h3 style="font-family:var(--font-display);margin:0 0 0.5rem;">Day 6 - Baguio Exploration</h3>
+          <div class="photo-grid-masonry" id="gallery-day6"></div>
+        </div>
+
+        <!-- Day 7 - Return -->
+        <div>
+          <h3 style="font-family:var(--font-display);margin:0 0 0.5rem;">Day 7 - Final Day & Return Home</h3>
+          <div class="photo-grid-masonry" id="gallery-day7"></div>
+        </div>
+
+        <button class="btn btn-ghost" onclick="openFullGallery(67)" style="margin-top:1.5rem;align-self:center;">
+          View All 28 Photos
+        </button>
+      </section>
+
+      <div class="two-col">
+        <section class="content-section reveal" data-delay="0.1">
+          <span class="section-kana">学んだこと</span>
+          <h2 class="section-heading">What We <span class="underline-swash">Learned</span></h2>
+          <div class="notebook journal-lines"
+            style="padding:1.5rem 1.5rem 1.5rem 4rem;border:var(--border-thick);border-radius:14px;box-shadow:var(--shadow-md);background:#fff;">
+            <div class="learn-item"><span class="learn-icon"></span>
+              <p>La Trinidad Strawberry Farm is the strawberry capital of the Philippines — we learned how strawberries
+                are grown in the cool Benguet climate and how this supports local farmers.</p>
+            </div>
+            <div class="learn-item"><span class="learn-icon"></span>
+              <p>PMA (Philippine Military Academy) trains the country's future military leaders — the discipline, honor,
+                and service values we saw were truly inspiring.</p>
+            </div>
+            <div class="learn-item"><span class="learn-icon"></span>
+              <p>The Mansion has been the Philippine president's summer palace since the American colonial era — a
+                symbol of Baguio's importance as the "Summer Capital."</p>
+            </div>
+            <div class="learn-item"><span class="learn-icon"></span>
+              <p>Burnham Park's Night Market shows how local economies thrive — it's a hub of small businesses,
+                affordable goods, and community gathering.</p>
+            </div>
+            <div class="learn-item"><span class="learn-icon"></span>
+              <p>The journey taught us that the best memories aren't just the places we visited — it's the people we
+                shared them with. Playing UNO together, laughing, and making memories as a class made this trip
+                unforgettable.</p>
+            </div>
+          </div>
+        </section>
+
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+          <section class="content-section reveal" data-delay="0.2">
+            <span class="section-kana">振り返り</span>
+            <h2 class="section-heading">Reflection</h2>
+            <div class="speech-bubble">
+              <p>"Baguio was everything we hoped for and more. From buying fresh strawberries at the farm to standing in
+                awe at the Philippine Military Academy — every stop had a story. The night market at Burnham Park, where
+                we bought UNO cards, and then playing those cards at the hotel with classmates... those moments of
+                laughter and connection are what I'll remember most. This wasn't just a tour. It was a bonding
+                experience that brought us closer as a class."</p>
+            </div>
+          </section>
+          <section class="content-section reveal" data-delay="0.25">
+            <span class="section-kana">おもしろい事実</span>
+            <h2 class="section-heading">Fun Facts</h2>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+              <div class="sticky" style="transform:rotate(-2deg)">Baguio has over 200,000 pine trees!</div>
+              <div class="sticky" style="transform:rotate(1.5deg);background:#e8eaf6;border-color:#9fa8da">PMA sends off
+                cadets with a "Taps" ceremony every evening</div>
+              <div class="sticky" style="transform:rotate(-1deg);background:#f3e5f5;border-color:#ce93d8">The Mansion's
+                gate is a replica of the one in Buckingham Palace</div>
+              <div class="sticky" style="transform:rotate(2deg);background:#e8f5e9;border-color:#a5d6a7">La Trinidad
+                Strawberry Farm produces 90% of Philippine strawberries</div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- FINAL STATS -->
+      <section class="content-section reveal">
+        <span class="section-kana">旅のまとめ</span>
+        <h2 class="section-heading">Journey <span class="underline-swash">Complete</span></h2>
+        <div class="final-stats">
+          <div class="final-stat"><span class="fs-num" id="final-days">0</span><span class="fs-label">Days
+              Traveled</span></div>
+          <div class="final-stat"><span class="fs-num" id="final-cities">0</span><span class="fs-label">Cities
+              Explored</span></div>
+          <div class="final-stat"><span class="fs-num" id="final-sites">0</span><span class="fs-label">Sites
+              Visited</span></div>
+        </div>
+      </section>
+
+      <!-- FINALE QUOTE -->
+      <section class="content-section reveal" data-delay="0.15">
+        <div class="finale-quote">
+          <blockquote>
+            "Seven days. Three cities. Dozens of stories.<br>
+            From Manila's history to Tagaytay's highlands to Baguio's pines —<br>
+            this journey showed us the beauty, talent, and warmth of our country.<br>
+            But more than the places we visited, it's the memories we made together.<br>
+            The laughter, the UNO games, the pasalubong, the shared meals...<br>
+            This was never just an educational tour.<br>
+            It was a chapter of our lives we'll never forget.<br><br>
+            Not all classrooms have four walls. And not all lessons are in books."
+          </blockquote>
+          <cite>— 旅日記 Educational Tour 2025 · Class of 2025</cite>
+        </div>
+      </section>
+
+      <div class="day-nav-row">
+        <button class="btn btn-ghost" onclick="nav(null,'day5.html','← Day 5')">← Day 5</button>
+        <button class="btn btn-red" onclick="nav(null,'index.html','Home')">Back to Home</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="photo-zoom" onclick="this.style.display='none'"
+    style="position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;backdrop-filter:blur(16px);">
+    <div id="pz-emoji" style="font-size:8rem;animation:pop-in 0.4s ease;"></div>
+    <div id="pz-title" style="font-family:var(--font-display);font-weight:900;font-size:1.5rem;color:#fff;"></div>
+    <div id="pz-desc"
+      style="font-family:var(--font-sketch);font-size:1rem;color:rgba(255,255,255,0.6);max-width:400px;text-align:center;">
+    </div>
+    <div style="font-family:var(--font-sketch);font-size:0.8rem;color:rgba(255,255,255,0.3);margin-top:1rem;">Click
+      anywhere to close</div>
+  </div>
+
+  <div id="ach-strip"></div>
+  <script src="shared.js"></script>
+  <script src="day-shared.js"></script>
+  <script>
+    initDayPage('day67');
+
+    // Final counter animation
+    function animCounter(id, end, dur = 1400) {
+      const el = document.getElementById(id); if (!el) return;
+      let s = 0, t = null;
+      const step = ts => { if (!t) t = ts; const p = Math.min((ts - t) / dur, 1); el.textContent = Math.round(p * end); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        animCounter('final-days', 7); animCounter('final-cities', 3, 1500); animCounter('final-sites', 19, 1600);
+        obs.disconnect();
+      }
+    }, { threshold: 0.3 });
+    const statsEl = document.querySelector('.final-stats');
+    if (statsEl) obs.observe(statsEl);
+
+    // Confetti on load since it's the finale
+    setTimeout(() => { launchConfetti(); launchPetals(10); }, 1000);
+  </script>
+</body>
+
+</html>
